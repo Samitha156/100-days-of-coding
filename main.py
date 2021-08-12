@@ -1,18 +1,19 @@
-# 🚨 Don't change the code below 👇
-year = int(input("Which year do you want to check? "))
-# 🚨 Don't change the code above 👆
-initial_check01 = year / 4
-initial_check02 = year / 100
-initial_check03 = year / 400
-if (initial_check01 % 2 == 0):
-    if (initial_check02 % 2 == 0):
-        if (initial_check03 % 2 == 0):
-            print("This is a leap year")
-        else:
-            print("This is not a leap year")
-    else:
-        print("This is a leap year")
-else:
-    print("Not a leap year")
+from question_model import Question
+from data import question_data
+from quiz_brain import QuizBrain
 
-#Write your code below this line 👇
+question_bank = []
+for question in question_data:
+    question_text = question["text"]
+    question_answer = question["answer"]
+    new_question = Question(question_text, question_answer)
+    question_bank.append(new_question)
+# print(f"{question_bank}")
+
+quiz = QuizBrain(question_bank)
+
+while quiz.still_has_questions():
+    quiz.next_question()
+
+print("You have completed")
+print(f"Your final score is {quiz.score}/{quiz.question_number}")
